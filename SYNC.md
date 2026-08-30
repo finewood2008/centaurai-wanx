@@ -1,5 +1,14 @@
 # Git 同步操作手册
 
+## 已配置位置
+
+- 本机：`/Users/finewood/Desktop/projects/centaurAI`
+- 远端 `johny`：`~/projects/centaurAI`
+- 私有仓库：`finewood2008/centaurAI`
+- 远端地址：`git@github-centaurai:finewood2008/centaurAI.git`
+
+远端使用仓库专属的 GitHub 部署密钥，不需要复制或共享个人 GitHub 凭证。
+
 ## 本机获取远程修改
 
 ```bash
@@ -41,4 +50,3 @@ git push
 ```
 
 不要把 `.env`、API 密钥、SSH 私钥、密码或大型依赖目录提交到仓库。
-
