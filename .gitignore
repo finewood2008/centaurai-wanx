@@ -9,8 +9,8 @@ build/
 .cache/
 .next/
 coverage/
+.git-sites-backup/
 
 .idea/
 .vscode/
 *.log
-

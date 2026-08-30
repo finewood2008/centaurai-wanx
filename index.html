@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>万象 · 产品规格 Draft 0.1</title>
+  <style>
+    :root {
+      --paper: #f4f1ea;
+      --ink: #18201f;
+      --slate: #5f6966;
+      --line: #cfd2c9;
+      --panel: #fffefa;
+      --accent: #1f6b57;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.62;
+    }
+    a { color: inherit; text-underline-offset: 3px; }
+    .page { width: min(1180px, calc(100% - 40px)); margin: 30px auto 72px; }
+    .topline, .meta, .eyebrow, th, .metric, .phase-no {
+      font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+      letter-spacing: .04em;
+    }
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+    .status { padding: 3px 9px; color: var(--panel); background: var(--accent); border-radius: 99px; }
+    header { padding: 66px 0 54px; display: grid; grid-template-columns: 8fr 4fr; gap: 54px; }
+    h1, h2, blockquote {
+      font-family: "Noto Serif SC", "Songti SC", Georgia, serif;
+      font-weight: 600;
+    }
+    h1 { margin: 0 0 22px; font-size: clamp(52px, 8vw, 104px); line-height: .98; letter-spacing: -.05em; }
+    h2 { margin: 0 0 18px; font-size: 30px; line-height: 1.2; }
+    h3 { margin: 0 0 8px; font-size: 16px; }
+    p { margin: 0 0 14px; }
+    .lede { max-width: 760px; font-size: 22px; line-height: 1.55; }
+    .meta { align-self: end; color: var(--slate); font-size: 12px; }
+    .meta div { padding: 8px 0; border-bottom: 1px solid var(--line); }
+    .section { padding: 42px 0; border-top: 1px solid var(--ink); }
+    .eyebrow { margin-bottom: 8px; color: var(--slate); font-size: 11px; text-transform: uppercase; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .problem { display: grid; grid-template-columns: 7fr 5fr; gap: 48px; }
+    blockquote { margin: 0; padding-left: 24px; border-left: 3px solid var(--ink); font-size: 25px; line-height: 1.45; }
+    .panel { padding: 24px; background: var(--panel); border: 1px solid var(--line); }
+    ul { margin: 0; padding-left: 20px; }
+    li + li { margin-top: 8px; }
+    table { width: 100%; border-collapse: collapse; background: var(--panel); }
+    th, td { padding: 14px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+    th { font-size: 11px; color: var(--slate); text-transform: uppercase; }
+    .metric { white-space: nowrap; font-size: 18px; }
+    .flow { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); background: var(--panel); }
+    .phase { min-height: 180px; padding: 22px; border-right: 1px solid var(--line); }
+    .phase:last-child { border-right: 0; }
+    .phase-no { margin-bottom: 28px; color: var(--accent); font-size: 13px; }
+    .architecture { display: grid; grid-template-columns: 3fr 1fr 3fr 1fr 3fr; align-items: stretch; }
+    .arch-node { padding: 22px; background: var(--panel); border: 1px solid var(--line); }
+    .arrow { display: grid; place-items: center; color: var(--slate); font-size: 24px; }
+    .stories { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .story { padding: 20px; border-top: 1px solid var(--ink); }
+    .questions { counter-reset: q; display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
+    .question { counter-increment: q; padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .question::before { content: "Q" counter(q); display: inline-block; width: 34px; color: var(--slate); font-family: monospace; }
+    footer { padding-top: 28px; color: var(--slate); font-size: 13px; border-top: 1px solid var(--line); }
+    @media (max-width: 820px) {
+      header, .problem, .grid-2, .stories, .questions { grid-template-columns: 1fr; }
+      .flow { grid-template-columns: 1fr; }
+      .phase { min-height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+      .architecture { grid-template-columns: 1fr; }
+      .arrow { min-height: 44px; transform: rotate(90deg); }
+      .topline { align-items: flex-start; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="topline">
+      <span>Wanxiang / Product specification</span>
+      <span class="status">Draft 0.1</span>
+    </div>
+
+    <header>
+      <div>
+        <div class="eyebrow">社群陪跑的工作 Agent Builder</div>
+        <h1>万象</h1>
+        <p class="lede">以 DSH 为底座，让普通人与社群导师共同把真实工作流程构建成可连接数据、可验证、可审计、可持续改进的 Agent 应用。</p>
+      </div>
+      <div class="meta">
+        <div>状态　待共同评审</div>
+        <div>日期　2026-08-30</div>
+        <div>Owner　万象团队</div>
+        <div>底座　DeepSeek Harness</div>
+      </div>
+    </header>
+
+    <section class="section problem">
+      <div>
+        <div class="eyebrow">01 / Problem</div>
+        <h2>问题不是生成太难，而是交付真实价值太难。</h2>
+        <p>一句话生成隐藏了需求澄清、数据理解、异常处理、权限、安全和验收等必要工作。普通人独自完成这些工作并不现实，因此大量“应用”只在演示时成立。</p>
+        <p>万象把成员、导师和 Builder Agent 组成一个共同交付系统，目标是完成真实工作，而不是降低第一次生成的摩擦。</p>
+      </div>
+      <blockquote>“用户不是在万象里做出一个应用，而是让一项真实工作第一次被可靠地完成，并能在此后重复运行。”</blockquote>
+    </section>
+
+    <section class="section grid-2">
+      <div class="panel">
+        <div class="eyebrow">Goals</div>
+        <h2>我们要证明</h2>
+        <ul>
+          <li>社群陪跑能稳定交付有用的工作 Agent。</li>
+          <li>成员能参与验收并逐步获得维护能力。</li>
+          <li>DSH、Builder Agent 和 Data Agent 能形成完整闭环。</li>
+          <li>自动化范围可以随真实证据逐步扩大。</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="eyebrow">Non-goals</div>
+        <h2>我们暂时不做</h2>
+        <ul>
+          <li>不承诺“一句话生成任意应用”。</li>
+          <li>不先建设拖拽编辑器或大型模板市场。</li>
+          <li>不 fork DSH，也不重造 Agent Runtime。</li>
+          <li>不以页面数量、创建量或演示效果衡量价值。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="eyebrow">02 / Core loop</div>
+      <h2>从真实案例到持续运行</h2>
+      <div class="flow">
+        <div class="phase"><div class="phase-no">01</div><h3>发现</h3><p>带来最近真实发生过的任务，明确输入、步骤与完成标准。</p></div>
+        <div class="phase"><div class="phase-no">02</div><h3>建模</h3><p>定义工作流、数据契约、异常、权限和风险。</p></div>
+        <div class="phase"><div class="phase-no">03</div><h3>构建</h3><p>Builder Agent 在 DSH 中组合 Skills、Tools 与 Workflow。</p></div>
+        <div class="phase"><div class="phase-no">04</div><h3>验证</h3><p>案例评测与影子运行；成员和导师共同判断结果。</p></div>
+        <div class="phase"><div class="phase-no">05</div><h3>发布</h3><p>形成可回滚版本，并从真实使用反馈中持续改进。</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="eyebrow">03 / Architecture</div>
+      <h2>万象建立在 DSH 之上</h2>
+      <div class="architecture">
+        <div class="arch-node"><h3>成员 + 导师</h3><p>提供领域判断、验收证据与高风险批准。</p></div>
+        <div class="arrow">→</div>
+        <div class="arch-node"><h3>万象 Builder Agent</h3><p>作为 DSH Profile/Bundle 运行，负责发现、构建、验证和教学。</p></div>
+        <div class="arrow">→</div>
+        <div class="arch-node"><h3>Data Agent Bridge</h3><p>按最小权限提供真实数据能力，并返回来源与可追踪结果。</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="eyebrow">04 / Success metrics</div>
+      <h2>成功发生在真实运行之后</h2>
+      <table>
+        <thead><tr><th>指标</th><th>Draft 目标</th><th>测量</th></tr></thead>
+        <tbody>
+          <tr><td>首次真实价值时间</td><td class="metric">≤ 14 天</td><td>入组到首次通过验收的真实运行</td></tr>
+          <tr><td>Cohort 交付率</td><td class="metric">≥ 60%</td><td>达到“有用”最低定义的成员比例</td></tr>
+          <tr><td>4 周持续使用率</td><td class="metric">≥ 50%</td><td>第 4 周仍完成有效运行的 Agent</td></tr>
+          <tr><td>已批准运行成功率</td><td class="metric">≥ 90%</td><td>结果被接受且无严重返工的运行</td></tr>
+          <tr><td>风险受控 / 可追溯</td><td class="metric">100%</td><td>批准记录与完整 Session 证据</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <div class="eyebrow">05 / User stories</div>
+      <h2>三种共同工作者</h2>
+      <div class="stories">
+        <div class="story"><h3>作为社群成员</h3><p>我希望从一项真实任务开始，在每一步知道系统需要我判断什么，从而得到自己能使用和维护的 Agent。</p></div>
+        <div class="story"><h3>作为社群导师</h3><p>我希望快速看见项目的范围、证据、风险和缺口，从而把时间用在最需要人的判断上。</p></div>
+        <div class="story"><h3>作为平台运营者</h3><p>我希望复用课程、策略和能力，同时固定 DSH 与插件版本，从而稳定扩大交付规模。</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="eyebrow">06 / MVP scope</div>
+      <h2>先完成一条垂直切片</h2>
+      <div class="grid-2">
+        <div>
+          <p><strong>人群：</strong>10–20 名成员，聚焦 1–2 类相邻工作场景。</p>
+          <p><strong>任务：</strong>每人一个高频、低到中风险、结果可判断的工作流。</p>
+          <p><strong>能力：</strong>DSH Profile、Builder Agent、只读 Data Agent Bridge、案例评测、影子运行、人工批准和版本回滚。</p>
+        </div>
+        <div>
+          <p><strong>完成门槛：</strong>不少于 5 个案例、至少 2 个边界案例、3 次真实运行、所有高风险动作受控、成员能够完成一次小修改。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="eyebrow">07 / Open questions</div>
+      <h2>下一轮需要共同决定</h2>
+      <div class="questions">
+        <div class="question">首个 Cohort 聚焦哪些成员与工作场景？</div>
+        <div class="question">现有 Data Agent 提供哪些权限与审计接口？</div>
+        <div class="question">MVP 采用本地、托管还是混合运行？</div>
+        <div class="question">导师一次能陪跑多少个项目？</div>
+      </div>
+    </section>
+
+    <footer>
+      完整说明见 <a href="docs/product/PRODUCT.md">产品基线</a> 与 <a href="docs/architecture/DSH_FOUNDATION.md">DSH 技术架构</a>。DSH 当前处于 Developer Preview；万象将固定兼容版本并通过适配层升级。
+    </footer>
+  </main>
+</body>
+</html>

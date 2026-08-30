@@ -1,10 +1,20 @@
-# centaurAI
+# 万象（Wanxiang）
 
-这是本机与远程 Claude Code 之间的私有 Git 同步仓库。
+万象是一个以 [DeepSeek Harness（DSH）](https://github.com/deepseek-ai/deepseek-harness) 为底座、由社群陪跑的工作 Agent Builder。
 
-- 远程 `johny`：修改代码、提交并推送。
-- 本机：拉取最新代码、安装依赖并运行测试。
-- GitHub：保存版本历史并在两端之间同步。
+它不承诺让普通人“一句话生成应用”，而是帮助社群成员把自己的真实工作流程，逐步构建成可连接真实数据、可验证、可审计、可持续改进的 Agent 应用。
 
-具体操作见 [SYNC.md](./SYNC.md)。
+## 当前阶段
 
+项目处于 **产品基线 / Draft 0.1**：先验证“社群成员 + 导师 + Builder Agent”能否稳定交付有用的工作应用，再扩大自助能力。
+
+- [产品基线](./docs/product/PRODUCT.md)
+- [DSH 技术架构](./docs/architecture/DSH_FOUNDATION.md)
+- [单页产品规格](./index.html)
+- [万象 MVP](./wanxiang-mvp)
+- [视觉系统](./DESIGN.md)
+- [Git 同步说明](./SYNC.md)
+
+## 北极星
+
+> 用户不是在万象里“做出一个应用”，而是在万象和社群的帮助下，让一项真实工作第一次被可靠地完成，并能在此后重复运行。
