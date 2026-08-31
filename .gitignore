@@ -14,3 +14,6 @@ coverage/
 .idea/
 .vscode/
 *.log
+
+# Local DSH sessions and generated project artifacts
+wanxiang-workspaces/

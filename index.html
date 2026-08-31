@@ -62,7 +62,7 @@
     th, td { padding: 14px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
     th { font-size: 11px; color: var(--slate); text-transform: uppercase; }
     .metric { white-space: nowrap; font-size: 18px; }
-    .flow { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); background: var(--panel); }
+    .flow { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); background: var(--panel); }
     .phase { min-height: 180px; padding: 22px; border-right: 1px solid var(--line); }
     .phase:last-child { border-right: 0; }
     .phase-no { margin-bottom: 28px; color: var(--accent); font-size: 13px; }
@@ -96,7 +96,7 @@
       <div>
         <div class="eyebrow">社群陪跑的工作 Agent Builder</div>
         <h1>万象</h1>
-        <p class="lede">以 DSH 为底座，让普通人与社群导师共同把真实工作流程构建成可连接数据、可验证、可审计、可持续改进的 Agent 应用。</p>
+        <p class="lede">以 DSH 为底座，引导普通人把真实工作流程构建成可连接数据、可验证、可审计、可持续改进的 Agent 应用；社群在流程外提供咨询与反馈。</p>
       </div>
       <div class="meta">
         <div>状态　待共同评审</div>
@@ -111,7 +111,7 @@
         <div class="eyebrow">01 / Problem</div>
         <h2>问题不是生成太难，而是交付真实价值太难。</h2>
         <p>一句话生成隐藏了需求澄清、数据理解、异常处理、权限、安全和验收等必要工作。普通人独自完成这些工作并不现实，因此大量“应用”只在演示时成立。</p>
-        <p>万象把成员、导师和 Builder Agent 组成一个共同交付系统，目标是完成真实工作，而不是降低第一次生成的摩擦。</p>
+        <p>万象把成员的领域判断与 Builder Agent 的构建能力组成交付系统，目标是完成真实工作，而不是降低第一次生成的摩擦。社群是独立支持服务，不承担流程审批。</p>
       </div>
       <blockquote>“用户不是在万象里做出一个应用，而是让一项真实工作第一次被可靠地完成，并能在此后重复运行。”</blockquote>
     </section>
@@ -144,10 +144,9 @@
       <h2>从真实案例到持续运行</h2>
       <div class="flow">
         <div class="phase"><div class="phase-no">01</div><h3>发现</h3><p>带来最近真实发生过的任务，明确输入、步骤与完成标准。</p></div>
-        <div class="phase"><div class="phase-no">02</div><h3>建模</h3><p>定义工作流、数据契约、异常、权限和风险。</p></div>
-        <div class="phase"><div class="phase-no">03</div><h3>构建</h3><p>Builder Agent 在 DSH 中组合 Skills、Tools 与 Workflow。</p></div>
-        <div class="phase"><div class="phase-no">04</div><h3>验证</h3><p>案例评测与影子运行；成员和导师共同判断结果。</p></div>
-        <div class="phase"><div class="phase-no">05</div><h3>发布</h3><p>形成可回滚版本，并从真实使用反馈中持续改进。</p></div>
+        <div class="phase"><div class="phase-no">02</div><h3>定义</h3><p>确认工作流、数据契约、异常、权限和风险边界。</p></div>
+        <div class="phase"><div class="phase-no">03</div><h3>构建验证</h3><p>进入修改后的 DSH 界面，边组合能力边运行案例并修正。</p></div>
+        <div class="phase"><div class="phase-no">04</div><h3>使用</h3><p>在同一个 DSH 工作会话中运行、批准、回归验证和持续改进。</p></div>
       </div>
     </section>
 
@@ -155,9 +154,9 @@
       <div class="eyebrow">03 / Architecture</div>
       <h2>万象建立在 DSH 之上</h2>
       <div class="architecture">
-        <div class="arch-node"><h3>成员 + 导师</h3><p>提供领域判断、验收证据与高风险批准。</p></div>
+        <div class="arch-node"><h3>社群成员</h3><p>提供领域判断、验收证据与高风险批准。</p></div>
         <div class="arrow">→</div>
-        <div class="arch-node"><h3>万象 Builder Agent</h3><p>作为 DSH Profile/Bundle 运行，负责发现、构建、验证和教学。</p></div>
+        <div class="arch-node"><h3>DSH Web + 万象 Bundle</h3><p>复用修改后的 DSH 主界面，负责构建验证、运行、批准和教学。</p></div>
         <div class="arrow">→</div>
         <div class="arch-node"><h3>Data Agent Bridge</h3><p>按最小权限提供真实数据能力，并返回来源与可追踪结果。</p></div>
       </div>
@@ -180,10 +179,10 @@
 
     <section class="section">
       <div class="eyebrow">05 / User stories</div>
-      <h2>三种共同工作者</h2>
+      <h2>产品角色与外部支持</h2>
       <div class="stories">
         <div class="story"><h3>作为社群成员</h3><p>我希望从一项真实任务开始，在每一步知道系统需要我判断什么，从而得到自己能使用和维护的 Agent。</p></div>
-        <div class="story"><h3>作为社群导师</h3><p>我希望快速看见项目的范围、证据、风险和缺口，从而把时间用在最需要人的判断上。</p></div>
+        <div class="story"><h3>作为社群支持者</h3><p>我希望通过独立服务回应咨询、收集反馈和组织课程，但不介入成员的流程解锁、验收与发布判断。</p></div>
         <div class="story"><h3>作为平台运营者</h3><p>我希望复用课程、策略和能力，同时固定 DSH 与插件版本，从而稳定扩大交付规模。</p></div>
       </div>
     </section>
@@ -210,7 +209,7 @@
         <div class="question">首个 Cohort 聚焦哪些成员与工作场景？</div>
         <div class="question">现有 Data Agent 提供哪些权限与审计接口？</div>
         <div class="question">MVP 采用本地、托管还是混合运行？</div>
-        <div class="question">导师一次能陪跑多少个项目？</div>
+        <div class="question">社群支持如何响应问题，并把高频问题沉淀为课程与 Builder 指引？</div>
       </div>
     </section>
 

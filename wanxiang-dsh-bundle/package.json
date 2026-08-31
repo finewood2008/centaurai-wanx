@@ -1,0 +1,32 @@
+{
+  "name": "@wanxiang/dsh-builder",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Wanxiang product layer for the DeepSeek Harness web surface",
+  "main": "./src/policy.mjs",
+  "exports": {
+    ".": "./src/policy.mjs",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-sidebar"
+      ],
+      "platform": "web"
+    }
+  },
+  "files": [
+    "src/policy.mjs",
+    "lib/client.js",
+    "cordis.patch.yml"
+  ]
+}

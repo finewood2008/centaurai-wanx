@@ -1,0 +1,8 @@
+# Wanxiang is a product layer on the native DSH Web surface. This row has a
+# Host face (Builder policy) and a Client face (branding + community drawer).
+- id: ui-brand-official
+  disabled: true
+
+- insert:
+    - id: wanxiang-builder
+      name: './src/policy.mjs'

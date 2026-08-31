@@ -2,7 +2,7 @@
 
 ## 架构决定
 
-万象不 fork DeepSeek Harness，也不在 DSH 外另造一套 Agent Runtime。万象通过 DSH 官方的 **Profile、Bundle、Plugin、Agent Preset、Tool、Workflow 和 Session Event** 扩展机制形成自己的产品发行版。
+万象不 fork DeepSeek Harness，也不在 DSH 外另造一套 Agent Runtime 或主工作台。万象本身是叠加在 DSH Web 上的 **Profile + Bundle + Plugin**：前置页面只完成需求发现与定义，后续构建、验证、运行和改进全部发生在修改后的 DSH 原生界面中。
 
 依据：
 
@@ -18,19 +18,16 @@
 ## 逻辑架构
 
 ```text
-成员工作台 ──────────────── 导师控制台
-     │                         │
-     └────── 万象 Builder Agent ──────┐
-                     │                 │
-             Wanxiang DSH Profile     │ 评审 / 批准 / 教学
-                     │                 │
-        ┌────────────┼────────────┐    │
-        │            │            │    │
-   工作流与目标   评测与门槛   Session 证据 ─┘
-        │            │            │
-        └──── Data Agent Bridge ──┘
-                     │
-        授权数据源 / 业务动作 / 结果来源
+需求发现与定义 ──进入── 修改后的 DSH Web（万象主界面）
+                              │
+                  @wanxiang/dsh-builder Bundle
+                    ┌─────────┼─────────┐
+                    │         │         │
+              Builder 策略  社群抽屉  Data Agent Bridge
+                    │         │         │
+                    └──── DSH Session ──┘
+                              │
+                  构建 ↔ 验证 ↔ 使用与改进
 ```
 
 ## DSH 组合
@@ -41,27 +38,25 @@
 
 ### Bundle：`@wanxiang/dsh-builder`
 
-Bundle 只通过公开扩展点组合能力：
+Bundle 只通过公开扩展点组合能力。MVP 已包含 Builder 系统提示插件、DSH 品牌位和社群抽屉；后续能力继续在同一 Bundle 内演进：
 
 - Builder Agent Preset。
 - Data Agent Bridge Provider 与模型可见 Tools。
 - 项目生命周期 Workflow。
 - 验收、审批、发布和回滚策略。
-- 万象的 Web Client 节点与导师视图。
+- 万象的 Web Client 节点与社群外部服务入口。
 - Session Projection：从事件日志派生进度、证据和质量状态。
 
 ### Builder Agent
 
 第一版使用一个具备清晰阶段的 Builder Agent，避免过早拆成互相传话的多 Agent 系统。只有可独立验证、需要隔离上下文或长时间运行的任务，才交给 DSH Subagent 或 Job 能力。
 
-Builder Agent 的阶段：
+Builder Agent 的产品阶段：
 
 1. `discover`：从真实案例提取工作契约。
-2. `model`：定义步骤、数据、权限、异常和完成标准。
-3. `build`：组合 Skills、Tools、Goals 与 Workflow。
-4. `verify`：执行案例评测和影子运行。
-5. `release`：生成版本、操作说明与回滚点。
-6. `improve`：根据真实运行反馈提出最小改动并回归测试。
+2. `define`：定义步骤、数据、权限、异常和完成标准。
+3. `build-verify`：在一个 DSH 工作会话中组合能力、立即运行案例、根据证据修正，直到可用。
+4. `use-improve`：在 DSH 中持续运行、批准风险动作、回归验证并保留版本。
 
 ## Data Agent Bridge
 
@@ -112,8 +107,9 @@ wanxiang-project/
 
 ### 产品面
 
-- 成员工作台：当前阶段、需要回答的问题、运行结果、批准和下一步。
-- 导师控制台：项目风险、阻塞、评测覆盖、待评审差异和 Cohort 进度。
+- 轻量前置页：只负责需求对话、工作简报确认与数据边界定义。
+- 修改后的 DSH Web：万象唯一的主工作界面，承载会话、工具、文件、批准、构建验证和持续使用。
+- 社群支持抽屉：由万象 Client Plugin 挂入 DSH 侧边栏；不读取项目审批状态，也不改变流程门槛。
 - 运营配置：模板、课程、策略、兼容版本和 Data Agent 能力目录。
 
 ### 运行面
@@ -137,12 +133,10 @@ wanxiang-project/
 
 第一条端到端能力不从“应用首页”开始，而从一个真实工作案例开始：
 
-1. 成员提交最近一次任务的输入与理想输出。
-2. Builder Agent 生成 Work Brief，导师确认范围。
-3. Data Agent Bridge 提供一个只读能力。
-4. Builder Agent 创建单步或少步骤 Workflow。
-5. 使用 5 个案例评测并展示差异。
-6. 在真实数据上影子运行 3 次。
-7. 达标后发布只读或审批式版本。
+1. 成员从最近一次真实任务开始，与 DSH Builder 进行多轮需求访谈。
+2. 每轮回答实时进入 Work Brief；目标、输入、规则、输出、边界和验收方式齐备后由成员确认范围。
+3. 确认数据边界后，前置页通过 DSH 的认证启动 URL 进入修改后的 DSH Web。
+4. Builder Agent 在同一会话内创建 Workflow、运行至少 5 个案例并根据差异持续修正。
+5. 在真实数据上影子运行 3 次，达标后转入可持续使用的只读或审批式版本。
 
 这条切片通过后，再扩展 UI 编辑、更多数据源或更复杂工作流。
