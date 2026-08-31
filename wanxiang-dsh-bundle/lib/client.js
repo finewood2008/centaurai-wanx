@@ -73,6 +73,40 @@ window.__ModuleLoader__.load({
       wide ? React.createElement("span", { style: { fontSize: 13 } }, "社群支持") : null);
     }
 
+    function DiscoveryButton({ wide }) {
+      const returnToDiscovery = () => {
+        const target = new URL(window.location.href);
+        target.port = "3000";
+        target.pathname = "/";
+        target.search = "";
+        target.hash = "";
+        window.location.assign(target.href);
+      };
+      return React.createElement("button", {
+        type: "button",
+        title: "返回万象需求发现",
+        "aria-label": "返回万象需求发现",
+        onClick: returnToDiscovery,
+        style: {
+          width: "100%",
+          minHeight: 38,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: wide ? "flex-start" : "center",
+          gap: 10,
+          padding: wide ? "8px 10px" : "8px",
+          border: 0,
+          borderRadius: 10,
+          background: "transparent",
+          color: "inherit",
+          cursor: "pointer",
+          font: "inherit",
+        },
+      },
+      React.createElement("span", { style: { fontSize: 17, lineHeight: 1 } }, "←"),
+      wide ? React.createElement("span", { style: { fontSize: 13 } }, "需求发现") : null);
+    }
+
     function CommunityDrawer() {
       const open = React.useSyncExternalStore(subscribe, () => drawerOpen, () => false);
       const [mode, setMode] = React.useState("咨询");
@@ -192,6 +226,7 @@ window.__ModuleLoader__.load({
                 yield ctx.slots.register({ name: "sidebar.brand.mark" }, Mark);
                 yield ctx.slots.register({ name: "sidebar.brand.name" }, Name);
                 yield ctx.slots.register({ name: "conversation.hero.brand.mark" }, Mark);
+                yield ctx.slots.register({ name: "sidebar.footer.action", id: "wanxiang-discovery", order: 4 }, DiscoveryButton);
                 yield ctx.slots.register({ name: "sidebar.footer.action", id: "wanxiang-community", order: 5 }, CommunityButton);
                 yield ctx.slots.register({ name: "shell.overlay", id: "wanxiang-community-drawer", order: 5 }, CommunityDrawer);
               })))));
