@@ -13,6 +13,7 @@ const maxOutputBytes = 256 * 1024;
 export class DshWebManager {
   constructor(options = {}) {
     this.harnessRepo = path.resolve(options.harnessRepo || process.env.DEEPSEEK_HARNESS_REPO || defaultHarnessRepo);
+    this.cliPath = path.resolve(options.cliPath || process.env.DEEPSEEK_HARNESS_CLI || path.join(this.harnessRepo, 'apps', 'cli', 'lib', 'bin.js'));
     this.workspaceRoot = path.resolve(options.workspaceRoot || process.env.WANXIANG_WORKSPACE_ROOT || defaultWorkspaceRoot);
     this.bundlePatch = path.resolve(options.bundlePatch || process.env.WANXIANG_DSH_BUNDLE_PATCH || path.join(projectRoot, 'wanxiang-dsh-bundle', 'cordis.patch.yml'));
     this.port = Number(options.port || process.env.WANXIANG_DSH_WEB_PORT || 3081);
@@ -66,27 +67,22 @@ export class DshWebManager {
   }
 
   async start(projectId) {
-    const sourceBin = path.join(this.harnessRepo, 'apps', 'cli', 'src', 'bin.ts');
-    const tsxLoader = path.join(this.harnessRepo, 'node_modules', 'tsx', 'dist', 'esm', 'index.mjs');
-    await Promise.all([access(sourceBin), access(tsxLoader), access(this.bundlePatch)]).catch((error) => {
-      throw new DshRunError('DSH_WEB_SOURCE_MISSING', '找不到本机修改后的 DeepSeek Harness 或万象 Bundle', String(error));
+    await Promise.all([access(this.cliPath), access(this.bundlePatch)]).catch((error) => {
+      throw new DshRunError('DSH_WEB_SOURCE_MISSING', '找不到本机 DeepSeek Harness 构建产物或万象 Bundle', String(error));
     });
 
     const workspace = workspaceFor(this.workspaceRoot, projectId);
     const args = [
-      '--import', tsxLoader,
-      sourceBin,
+      this.cliPath,
       '--profile', 'web',
       '--patch', this.bundlePatch,
       '--no-open',
       '--port', String(this.port),
+      '--trusted-host', `localhost:${String(this.port)}`,
     ];
     const child = spawn(process.execPath, args, {
       cwd: workspace,
-      env: {
-        ...this.environment,
-        TSX_TSCONFIG_PATH: path.join(this.harnessRepo, 'tsconfig.json'),
-      },
+      env: this.environment,
       stdio: ['ignore', 'pipe', 'pipe'],
     });
 
@@ -123,11 +119,13 @@ export class DshWebManager {
         });
       });
 
-      this.running = { child, url, output: () => output, projectId };
+      const browserUrl = new URL(url);
+      browserUrl.hostname = 'localhost';
+      this.running = { child, url: browserUrl.href, output: () => output, projectId };
       child.once('exit', () => {
         if (this.running?.child === child) this.running = null;
       });
-      return { url, port: this.port, reused: false };
+      return { url: browserUrl.href, port: this.port, reused: false };
     } catch (error) {
       if (child.exitCode === null) child.kill('SIGTERM');
       throw error;
