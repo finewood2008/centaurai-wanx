@@ -1,0 +1,11 @@
+{
+  "name": "wanxiang",
+  "version": "0.1.0",
+  "private": true,
+  "description": "万象：把真实工作构建成可靠 Agent",
+  "scripts": {
+    "start": "pnpm --dir wanxiang-runtime start",
+    "test": "pnpm --dir wanxiang-runtime test"
+  },
+  "packageManager": "pnpm@11.7.0"
+}

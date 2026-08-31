@@ -1,0 +1,33 @@
+# This template is rendered by the Wanxiang launcher. The product plugin has a
+# Host face (policy + web branding) and a Client face (the native workbench).
+- id: ui-brand-official
+  disabled: true
+
+- id: system-prompt
+  config:
+    includeHarnessIdentity: false
+    includeRuntimeContext: true
+    persona: ''
+
+- id: plugin-inventory
+  disabled: true
+
+- id: ui-settings-plugin-inventory
+  disabled: true
+
+- id: ui-settings-plugins
+  disabled: true
+
+- id: ui-agent-preset
+  disabled: true
+
+- id: web-runtime
+  config:
+    openBrowser: !!js ctx.webStartup.openBrowser
+    printUrl: true
+    surfaceContext: false
+    trustedHosts: !!js ctx.webStartup.trustedHosts
+
+- insert:
+    - id: wanxiang-workbench
+      name: __WANXIANG_POLICY_PATH__

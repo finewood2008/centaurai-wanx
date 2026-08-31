@@ -15,5 +15,7 @@ coverage/
 .vscode/
 *.log
 
-# Local DSH sessions and generated project artifacts
+# Local sessions and generated project artifacts
+.codex-tmp/
+.wanxiang-runtime/
 wanxiang-workspaces/

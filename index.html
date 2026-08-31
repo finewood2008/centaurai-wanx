@@ -96,13 +96,13 @@
       <div>
         <div class="eyebrow">社群陪跑的工作 Agent Builder</div>
         <h1>万象</h1>
-        <p class="lede">以 DSH 为底座，引导普通人把真实工作流程构建成可连接数据、可验证、可审计、可持续改进的 Agent 应用；社群在流程外提供咨询与反馈。</p>
+        <p class="lede">在同一个万象工作台里，引导普通人把真实工作流程构建成可连接数据、可验证、可审计、可持续改进的 Agent；社群在流程外提供咨询与反馈。</p>
       </div>
       <div class="meta">
         <div>状态　待共同评审</div>
         <div>日期　2026-08-30</div>
         <div>Owner　万象团队</div>
-        <div>底座　DeepSeek Harness</div>
+        <div>形态　本地单体应用</div>
       </div>
     </header>
 
@@ -123,7 +123,7 @@
         <ul>
           <li>社群陪跑能稳定交付有用的工作 Agent。</li>
           <li>成员能参与验收并逐步获得维护能力。</li>
-          <li>DSH、Builder Agent 和 Data Agent 能形成完整闭环。</li>
+          <li>需求发现、Builder Agent 和 Data Agent 能形成完整闭环。</li>
           <li>自动化范围可以随真实证据逐步扩大。</li>
         </ul>
       </div>
@@ -133,7 +133,7 @@
         <ul>
           <li>不承诺“一句话生成任意应用”。</li>
           <li>不先建设拖拽编辑器或大型模板市场。</li>
-          <li>不 fork DSH，也不重造 Agent Runtime。</li>
+          <li>不另起一套引导产品，也不让用户在多个界面间跳转。</li>
           <li>不以页面数量、创建量或演示效果衡量价值。</li>
         </ul>
       </div>
@@ -145,18 +145,18 @@
       <div class="flow">
         <div class="phase"><div class="phase-no">01</div><h3>发现</h3><p>带来最近真实发生过的任务，明确输入、步骤与完成标准。</p></div>
         <div class="phase"><div class="phase-no">02</div><h3>定义</h3><p>确认工作流、数据契约、异常、权限和风险边界。</p></div>
-        <div class="phase"><div class="phase-no">03</div><h3>构建验证</h3><p>进入修改后的 DSH 界面，边组合能力边运行案例并修正。</p></div>
-        <div class="phase"><div class="phase-no">04</div><h3>使用</h3><p>在同一个 DSH 工作会话中运行、批准、回归验证和持续改进。</p></div>
+        <div class="phase"><div class="phase-no">03</div><h3>构建验证</h3><p>在万象原生工作台里组合能力，同时运行案例、查看证据并修正。</p></div>
+        <div class="phase"><div class="phase-no">04</div><h3>使用</h3><p>在同一个万象工作会话中运行、批准、回归验证和持续改进。</p></div>
       </div>
     </section>
 
     <section class="section">
       <div class="eyebrow">03 / Architecture</div>
-      <h2>万象建立在 DSH 之上</h2>
+      <h2>万象是一套连续、开放的 Agent 工作台</h2>
       <div class="architecture">
         <div class="arch-node"><h3>社群成员</h3><p>提供领域判断、验收证据与高风险批准。</p></div>
         <div class="arrow">→</div>
-        <div class="arch-node"><h3>DSH Web + 万象 Bundle</h3><p>复用修改后的 DSH 主界面，负责构建验证、运行、批准和教学。</p></div>
+        <div class="arch-node"><h3>万象工作台</h3><p>把需求发现、构建验证、运行、批准和教学组织在同一个界面中。</p></div>
         <div class="arrow">→</div>
         <div class="arch-node"><h3>Data Agent Bridge</h3><p>按最小权限提供真实数据能力，并返回来源与可追踪结果。</p></div>
       </div>
@@ -183,7 +183,7 @@
       <div class="stories">
         <div class="story"><h3>作为社群成员</h3><p>我希望从一项真实任务开始，在每一步知道系统需要我判断什么，从而得到自己能使用和维护的 Agent。</p></div>
         <div class="story"><h3>作为社群支持者</h3><p>我希望通过独立服务回应咨询、收集反馈和组织课程，但不介入成员的流程解锁、验收与发布判断。</p></div>
-        <div class="story"><h3>作为平台运营者</h3><p>我希望复用课程、策略和能力，同时固定 DSH 与插件版本，从而稳定扩大交付规模。</p></div>
+        <div class="story"><h3>作为平台运营者</h3><p>我希望复用课程、策略和能力，同时固定运行时与能力版本，从而稳定扩大交付规模。</p></div>
       </div>
     </section>
 
@@ -194,7 +194,7 @@
         <div>
           <p><strong>人群：</strong>10–20 名成员，聚焦 1–2 类相邻工作场景。</p>
           <p><strong>任务：</strong>每人一个高频、低到中风险、结果可判断的工作流。</p>
-          <p><strong>能力：</strong>DSH Profile、Builder Agent、只读 Data Agent Bridge、案例评测、影子运行、人工批准和版本回滚。</p>
+          <p><strong>能力：</strong>万象本地运行时、Builder Agent、只读 Data Agent Bridge、案例评测、影子运行、人工批准和版本回滚。</p>
         </div>
         <div>
           <p><strong>完成门槛：</strong>不少于 5 个案例、至少 2 个边界案例、3 次真实运行、所有高风险动作受控、成员能够完成一次小修改。</p>
@@ -214,7 +214,7 @@
     </section>
 
     <footer>
-      完整说明见 <a href="docs/product/PRODUCT.md">产品基线</a> 与 <a href="docs/architecture/DSH_FOUNDATION.md">DSH 技术架构</a>。DSH 当前处于 Developer Preview；万象将固定兼容版本并通过适配层升级。
+      完整说明见 <a href="docs/product/PRODUCT.md">产品基线</a>。万象以本地单体应用交付，并固定运行时与能力版本。
     </footer>
   </main>
 </body>

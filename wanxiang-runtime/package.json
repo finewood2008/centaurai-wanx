@@ -1,0 +1,15 @@
+{
+  "name": "wanxiang-runtime",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "万象本地工作台运行时",
+  "scripts": {
+    "start": "node src/app.mjs",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@deepseek-ai/dsh": "0.1.2-alpha.2"
+  },
+  "packageManager": "pnpm@11.7.0"
+}

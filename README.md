@@ -1,41 +1,33 @@
 # 万象（Wanxiang）
 
-万象是一个以 [DeepSeek Harness（DSH）](https://github.com/deepseek-ai/deepseek-harness) 为底座、由社群陪跑的工作 Agent Builder。
+万象是一个面向社群成员的工作 Agent Builder。它帮助普通人把一项真实、反复发生的工作，逐步构建成可连接数据、可验证、可审查、可持续改进的 Agent。
 
-它不承诺让普通人“一句话生成应用”，而是帮助社群成员把自己的真实工作流程，逐步构建成可连接真实数据、可验证、可审计、可持续改进的 Agent 应用。
+万象不以“一句话生成应用”为目标。需求发现、构建、验证和运行都发生在同一个工作台里；社群作为独立的外部服务提供咨询与反馈，但不进入产品流程，也不替用户确认需求或验收结果。
 
-## 当前阶段
+## 当前 MVP
 
-项目处于 **产品基线 / Draft 0.1**：先验证“社群成员 + Builder Agent”能否稳定交付有用的工作应用，再扩大自助能力。社群作为独立外部服务提供咨询与反馈，不进入 Builder 流程。
+- 原生需求发现：用六轮对话形成可编辑的工作简报。
+- 统一工作台：确认简报后原位进入构建与验证，不跳转到另一套产品。
+- 自由构建：用户也可以直接进入工作台，随时回到需求发现。
+- 清洁运行时：万象使用项目随包安装的开放框架内核和独立数据目录，不读取本机其他安装中的插件或配置。
+- 社群抽屉：在任意阶段直接咨询或反馈，保持在流程之外。
 
-- [产品基线](./docs/product/PRODUCT.md)
-- [DSH 技术架构](./docs/architecture/DSH_FOUNDATION.md)
-- [单页产品规格](./index.html)
-- [万象 MVP](./wanxiang-mvp)
-- [DSH 本地服务](./wanxiang-dsh-service)
-- [视觉系统](./DESIGN.md)
-- [Git 同步说明](./SYNC.md)
-
-## 北极星
-
-> 用户不是在万象里“做出一个应用”，而是在万象和社群的帮助下，让一项真实工作第一次被可靠地完成，并能在此后重复运行。
+当前 Data Agent 仍是示例契约，不会读取真实业务数据，也不会执行外部写入。
 
 ## 本地运行
 
-万象 MVP 由两个本地进程组成。先启动万象 DSH 服务；它会在需求定义完成后启动本机修改版 DSH Web，并加载 `@wanxiang/dsh-builder` Bundle：
-
 ```bash
-cd wanxiang-dsh-service
-pnpm install
+pnpm --dir wanxiang-runtime install
 pnpm start
 ```
 
-再启动 Web 界面：
+打开 `http://localhost:3000`。第一次进入构建工作台时，可以在左侧设置中配置可用模型。
 
-```bash
-cd wanxiang-mvp
-npm install
-npm run dev
-```
+本地会话、配置和生成产物保存在 `.wanxiang-runtime/`，不会提交到 Git。产品内核的第三方许可见 [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md)。
 
-打开 `http://localhost:3000`。前置界面只完成需求发现和数据边界定义；确认后会进入 `http://127.0.0.1:3081` 上经过认证的 DSH 原生界面。万象 Bundle 负责 Builder 策略、品牌位和社群抽屉。当前 Data Agent 仍是示例契约，不会读取真实客户数据。
+## 相关文档
+
+- [产品基线](./docs/product/PRODUCT.md)
+- [一体化运行架构](./docs/architecture/WANXIANG_RUNTIME.md)
+- [视觉系统](./DESIGN.md)
+- [代码同步说明](./SYNC.md)

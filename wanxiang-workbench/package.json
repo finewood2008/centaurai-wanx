@@ -1,0 +1,36 @@
+{
+  "name": "@wanxiang/workbench",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "万象原生工作台：需求发现、构建验证与社群支持",
+  "main": "./src/policy.mjs",
+  "exports": {
+    ".": "./src/policy.mjs",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-api-session-controller",
+        "@deepseek-ai/dsh-api-workspace-controller",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-workspace"
+      ],
+      "platform": "web"
+    }
+  },
+  "files": [
+    "src/policy.mjs",
+    "lib/client.js",
+    "cordis.patch.yml"
+  ]
+}
