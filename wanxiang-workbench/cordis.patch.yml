@@ -9,6 +9,31 @@
     includeRuntimeContext: true
     persona: ''
 
+# 万象只切换 DSH 的权限预设，不更换会话使用的 Agent preset。
+# 理解阶段默认只读且不弹审批；用户明确“开始制作”后才切到项目可写。
+- id: sandbox-policy
+  config:
+    mode: read-only
+
+- id: approval
+  config:
+    policy: never
+
+- id: permission
+  config:
+    defaultPreset: wanxiang-discovery
+    presets:
+      wanxiang-discovery:
+        sandbox: read-only
+        approval: never
+        name: 理解中 · 只读
+        description: 只读取用户选择的项目资料和公开网页，不修改项目文件。
+      wanxiang-build:
+        sandbox: workspace-write
+        approval: ask
+        name: 制作中 · 项目可写
+        description: 允许修改当前项目；超出项目或具有外部副作用的动作仍需确认。
+
 - id: plugin-inventory
   disabled: true
 

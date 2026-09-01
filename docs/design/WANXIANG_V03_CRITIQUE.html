@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>万象 v0.3 · 五维设计评审</title>
+  <style>
+    :root{--paper:#f3f0e8;--card:#fffefa;--ink:#17211f;--muted:#66716d;--line:#d7d3c8;--jade:#1f6b57;--jade-soft:#e2efe9;--amber:#a56f13;--amber-soft:#f6ecd3;--red:#9b4338;--red-soft:#f7e7e3}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65}
+    main{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:56px 0 80px}
+    header{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:48px;align-items:end;padding-bottom:32px;border-bottom:1px solid var(--line)}
+    .eyebrow,.meta,.band,.score-label{font:600 12px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--jade)}
+    h1,h2,h3{font-family:"Songti SC","STSong",serif;font-weight:600;letter-spacing:-.02em}
+    h1{max-width:760px;margin:12px 0 14px;font-size:clamp(38px,6vw,72px);line-height:1.08}
+    .lede{max-width:720px;margin:0;color:var(--muted);font-size:17px}
+    .meta-card{padding:18px 20px;background:color-mix(in srgb,var(--card) 82%,transparent);border:1px solid var(--line);border-radius:18px}
+    .meta-card dl{margin:0;display:grid;grid-template-columns:78px 1fr;gap:7px 12px;font-size:13px}
+    .meta-card dt{color:var(--muted)}.meta-card dd{margin:0}
+    .overview{display:grid;grid-template-columns:340px minmax(0,1fr);gap:40px;padding:40px 0}
+    .radar{display:grid;place-items:center;min-height:320px;background:var(--card);border:1px solid var(--line);border-radius:24px}
+    .summary{align-self:center}.summary h2{margin:0 0 10px;font-size:34px}.summary p{margin:0 0 18px;color:var(--muted)}
+    .overall{display:flex;align-items:baseline;gap:12px;margin:12px 0}.overall strong{font:700 64px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--jade)}.overall span{color:var(--muted)}
+    .score-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:24px}
+    .mini-score{padding:12px 10px;background:var(--card);border:1px solid var(--line);border-radius:12px}.mini-score b{display:block;font:700 20px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace}.mini-score span{display:block;margin-top:4px;color:var(--muted);font-size:11px}
+    .dimensions{display:grid;gap:18px}
+    .dimension{display:grid;grid-template-columns:170px minmax(0,1fr);gap:28px;padding:26px;background:var(--card);border:1px solid var(--line);border-radius:20px}
+    .dimension h2{margin:4px 0 8px;font-size:27px}.dimension .number{font:700 42px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--jade)}
+    .band{display:inline-flex;margin-top:10px;padding:5px 9px;border-radius:999px;background:var(--jade-soft)}
+    .evidence{margin:0 0 18px;padding:0 0 0 20px;color:#33413d}.evidence li+li{margin-top:5px}
+    .actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .action{padding:14px;border:1px solid var(--line);border-radius:13px;background:#faf8f2}.action strong{display:block;margin-bottom:5px;font-size:12px;letter-spacing:.06em}.action p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+    .keep strong{color:var(--jade)}.fix strong{color:var(--red)}.quick strong{color:var(--amber)}
+    .synthesis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}.synthesis section{padding:22px;border-radius:18px;border:1px solid var(--line);background:var(--card)}.synthesis h2{margin:0 0 12px;font-size:23px}.synthesis ul{margin:0;padding-left:18px;color:var(--muted);font-size:14px}.synthesis li+li{margin-top:7px}
+    .method{margin-top:36px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}.method strong{color:var(--ink)}
+    @media(max-width:820px){main{width:min(100% - 24px,720px);padding-top:28px}header,.overview,.dimension{grid-template-columns:1fr}.overview{gap:20px}.meta-card{max-width:420px}.score-grid{grid-template-columns:repeat(2,1fr)}.actions,.synthesis{grid-template-columns:1fr}.dimension{gap:16px}.radar{min-height:300px}}
+    @media print{body{background:white}main{width:100%;padding:0}.dimension,.radar,.meta-card,.mini-score,.synthesis section{break-inside:avoid;box-shadow:none}}
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <div class="eyebrow">Design critique · v0.3</div>
+        <h1>万象：知君式原生对话工作台</h1>
+        <p class="lede">基于真实运行页面的五维设计评审。评审对象包括新项目首屏、原生对话、工作说明抽屉、社群抽屉、深浅主题，以及 600 / 900 / 1118px 三档响应式表现。</p>
+      </div>
+      <aside class="meta-card" aria-label="评审信息">
+        <dl>
+          <dt>Artifact</dt><dd>万象本地工作台</dd>
+          <dt>Date</dt><dd>2026-09-01</dd>
+          <dt>Reviewer</dt><dd>OD · Critique skill</dd>
+          <dt>Build</dt><dd>v0.3.0</dd>
+          <dt>Method</dt><dd>Live UI + contract review</dd>
+        </dl>
+      </aside>
+    </header>
+
+    <section class="overview" aria-labelledby="overview-title">
+      <div class="radar">
+        <svg width="300" height="300" viewBox="0 0 240 240" role="img" aria-label="五维评分雷达图：哲学 8.6，视觉层级 8.2，细节 8.4，功能 8.8，创新 8.0">
+          <g fill="none" stroke="#d7d3c8" stroke-width="1">
+            <polygon points="120,34 202,93 171,190 69,190 38,93"/>
+            <polygon points="120,34 202,93 171,190 69,190 38,93" transform="translate(120 120) scale(.8) translate(-120 -120)"/>
+            <polygon points="120,34 202,93 171,190 69,190 38,93" transform="translate(120 120) scale(.6) translate(-120 -120)"/>
+            <polygon points="120,34 202,93 171,190 69,190 38,93" transform="translate(120 120) scale(.4) translate(-120 -120)"/>
+            <polygon points="120,34 202,93 171,190 69,190 38,93" transform="translate(120 120) scale(.2) translate(-120 -120)"/>
+            <path d="M120 120V34M120 120L202 93M120 120L171 190M120 120L69 190M120 120L38 93"/>
+          </g>
+          <polygon points="120,46 187,98 163,179 76,181 55,99" fill="#1f6b5730" stroke="#1f6b57" stroke-width="2.2"/>
+          <g fill="#1f6b57"><circle cx="120" cy="46" r="3.5"/><circle cx="187" cy="98" r="3.5"/><circle cx="163" cy="179" r="3.5"/><circle cx="76" cy="181" r="3.5"/><circle cx="55" cy="99" r="3.5"/></g>
+          <g fill="#52605b" font-family="PingFang SC, sans-serif" font-size="10" text-anchor="middle">
+            <text x="120" y="18">哲学</text><text x="220" y="91">视觉层级</text><text x="183" y="215">细节</text><text x="57" y="215">功能</text><text x="20" y="91">创新</text>
+          </g>
+        </svg>
+      </div>
+      <div class="summary">
+        <div class="score-label">Overall score</div>
+        <div class="overall"><strong>8.4</strong><span>/ 10 · Strong</span></div>
+        <h2 id="overview-title">已经像一个产品，而不是框架上的引导层</h2>
+        <p>最明显的进步是“一个万象”的整体感：真实工作从原生输入框开始，工作说明只作为同一对话的动态契约出现，确认后仍在原位制作。暖纸、玉绿和编辑式回答建立了可信、低压的气质，安全状态也没有被视觉包装掩盖。</p>
+        <div class="score-grid" aria-label="分项评分">
+          <div class="mini-score"><b>8.6</b><span>哲学</span></div>
+          <div class="mini-score"><b>8.2</b><span>视觉层级</span></div>
+          <div class="mini-score"><b>8.4</b><span>细节</span></div>
+          <div class="mini-score"><b>8.8</b><span>功能</span></div>
+          <div class="mini-score"><b>8.0</b><span>创新</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dimensions" aria-label="五维评审详情">
+      <article class="dimension">
+        <div><div class="number">8.6</div><h2>哲学</h2><span class="band">Strong</span></div>
+        <div>
+          <ul class="evidence">
+            <li>首屏直接问“今天想把哪件真实工作交给万象？”，把价值锚定在真实、重复发生的工作，而不是生成应用。</li>
+            <li>工作说明明确区分用户确认、根据案例推断和待确认；“完成”必须由真实材料与验收证据支撑。</li>
+            <li>社群抽屉诚实说明“仅保存在本机，尚未发送”，没有把外部服务伪装成产品能力。</li>
+          </ul>
+          <div class="actions">
+            <div class="action keep"><strong>KEEP</strong><p>继续让证据、边界与用户判断先于完成动画。</p></div>
+            <div class="action fix"><strong>FIX</strong><p>旧历史回答仍偶尔以“代码已完成”开场；未来应让验收摘要先于实现清单。</p></div>
+            <div class="action quick"><strong>QUICK WIN</strong><p>在完成态固定展示“真实输入 / 验收证据 / 用户接受”三联摘要。</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="dimension">
+        <div><div class="number">8.2</div><h2>视觉层级</h2><span class="band">Strong</span></div>
+        <div>
+          <ul class="evidence">
+            <li>新项目首屏只有一个主问题、三个真实工作示例和一个原生输入框，视线顺序清楚。</li>
+            <li>低密度侧栏、宋体标题、暖纸背景与单一玉绿动作色形成稳定的品牌层级。</li>
+            <li>400px 桌面抽屉不遮罩主界面；900px 进入 420px 模态；600px 近全宽，断点行为符合阅读任务。</li>
+          </ul>
+          <div class="actions">
+            <div class="action keep"><strong>KEEP</strong><p>保留“标题开放、操作克制、证据可折叠”的编辑式构图。</p></div>
+            <div class="action fix"><strong>FIX</strong><p>超长历史回答在中屏仍会与抽屉争夺注意力，缺少更强的阶段性导航。</p></div>
+            <div class="action quick"><strong>QUICK WIN</strong><p>为长回答增加小型段落目录，仅在超过三个二级标题时出现。</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="dimension">
+        <div><div class="number">8.4</div><h2>细节</h2><span class="band">Strong</span></div>
+        <div>
+          <ul class="evidence">
+            <li>浅色与深色分别使用完整的纸面、卡片、正文、玉绿和分隔线 token，不是简单反色。</li>
+            <li>抽屉支持 Escape、焦点圈定、关闭后焦点恢复；600px 下没有横向溢出。</li>
+            <li>页面标题、运行记录、工作规则和权限状态都已转成万象语言，模型提供方名称作为必要事实保留。</li>
+          </ul>
+          <div class="actions">
+            <div class="action keep"><strong>KEEP</strong><p>继续使用 120–180ms 的轻动效，并尊重 reduced-motion。</p></div>
+            <div class="action fix"><strong>FIX</strong><p>模型推理等级与少量运行指标来自供应方元数据，仍偏技术化。</p></div>
+            <div class="action quick"><strong>QUICK WIN</strong><p>为已知推理等级和运行统计增加产品化显示名，同时保留原值在详情中。</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="dimension">
+        <div><div class="number">8.8</div><h2>功能</h2><span class="band">Strong</span></div>
+        <div>
+          <ul class="evidence">
+            <li>对话、附件、模型选择、停止、队列、审批、工具生命周期和运行记录都留在原生会话中。</li>
+            <li>七项工作说明有 CAS、字段来源、确认快照和多标签冲突处理；权威状态不在 Agent 可写工作区。</li>
+            <li>“开始制作”在同一会话执行幂等激活，切权限、刷新、校验和发送任一步失败都会关闭写工具并提供恢复路径。</li>
+          </ul>
+          <div class="actions">
+            <div class="action keep"><strong>KEEP</strong><p>保持同一会话、单次激活和失败关闭写权限这三条硬约束。</p></div>
+            <div class="action fix"><strong>FIX</strong><p>Data Agent 与远端社群尚未连接，首发价值仍依赖本地材料和公开资料。</p></div>
+            <div class="action quick"><strong>QUICK WIN</strong><p>在首次运行证据卡中固定标注数据来源是本地、公开资料还是示例契约。</p></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="dimension">
+        <div><div class="number">8.0</div><h2>创新</h2><span class="band">Strong</span></div>
+        <div>
+          <ul class="evidence">
+            <li>把工作说明做成模型持续更新、用户随时修正的动态契约，比固定六步表单更贴近真实协作。</li>
+            <li>同一个 Agent 从理解进入制作，不切角色、不派发第二会话，显著降低“两个产品”的割裂感。</li>
+            <li>创新集中在工作闭环与安全协议，而不是用全新的交互替换成熟的对话框架。</li>
+          </ul>
+          <div class="actions">
+            <div class="action keep"><strong>KEEP</strong><p>继续把创新放在可验证工作能力，而不是生成速度或界面噱头。</p></div>
+            <div class="action fix"><strong>FIX</strong><p>工作说明目前仍以七张文本卡为主，案例证据与字段之间的关系可更直观。</p></div>
+            <div class="action quick"><strong>QUICK WIN</strong><p>允许从一条真实案例直接生成“规则—边界—验收”关联预览，用户逐项确认。</p></div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="synthesis" aria-label="综合建议">
+      <section><h2>Keep</h2><ul><li>单一原生对话与单一工作说明入口。</li><li>暖纸 + 玉绿的低压可信气质。</li><li>真实材料、验收证据与用户接受的完成门槛。</li></ul></section>
+      <section><h2>Fix</h2><ul><li>降低长历史回答与运行指标的技术密度。</li><li>让旧项目也稳定呈现真实权限，而非只根据项目阶段推测。</li><li>连接 Data Agent 前持续明确能力边界。</li></ul></section>
+      <section><h2>Quick wins</h2><ul><li>为长回答提供轻量目录。</li><li>翻译已知推理等级与运行统计显示名。</li><li>在结果卡固定标记数据来源和验收证据。</li></ul></section>
+    </section>
+
+    <p class="method"><strong>评审依据：</strong>本地真实进程、最终 DOM 与视觉截图；桌面 1118×783、平板 900×800、窄屏 600×800；浅色与深色主题；工作说明与社群抽屉；Escape、焦点恢复、冷启动和品牌术语扫描。分数代表当前 MVP 的设计成熟度，不代表尚未接入的 Data Agent 或远端社群能力已经完成。</p>
+  </main>
+</body>
+</html>

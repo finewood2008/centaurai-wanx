@@ -9,14 +9,18 @@ pnpm install
 pnpm start
 ```
 
-工作台默认监听 `http://localhost:3000`。启动日志会打印带本地认证令牌的地址。
+工作台默认使用 3000 端口。请以启动日志打印的完整本地认证地址为准；地址中包含访问令牌，裸 `http://localhost:3000` 不是可直接访问承诺。
 
 默认数据目录是仓库根目录的 `.wanxiang-runtime/`：
 
 - `engine/`：万象独立的运行时配置与会话状态。
+- `projects/`：Agent 无法直接写入的权威项目状态。
+- `shell/`：共享运行时的中性工作目录，不属于任何项目。
 - `workspaces/`：用户项目和可审查产物。
 - `wanxiang.patch.yml`：启动时由产品模板生成的组合配置。
 
-可通过 `WANXIANG_DATA_ROOT` 把整个目录迁移到桌面应用的用户数据目录。`WANXIANG_PORT`、`WANXIANG_PROJECT_ID` 和 `WANXIANG_PROJECT_NAME` 可覆盖默认启动参数。
+可通过 `WANXIANG_DATA_ROOT` 把整个目录迁移到桌面应用的用户数据目录，`WANXIANG_PORT` 可覆盖默认端口。项目由工作台内创建、导入和切换；切换项目不会重启共享运行时。
 
-模型凭证只由工作台自身的凭证系统管理；启动器不会读取、返回或记录密钥。
+模型凭证只由工作台自身的凭证系统管理。启动器只向子进程传递 PATH、locale、临时目录、终端等安全环境变量以及明确需要的运行时和万象目录配置，不继承 token、key 或 credential 环境变量。
+
+新安装默认使用暖纸浅色主题；旧安装只迁移一次尚未明确选择的默认主题，之后始终尊重用户选择。项目工作区内的 `.wanxiang/project.json` 仅是可迁移镜像，权威状态保存在 `projects/`，避免制作阶段的文件工具绕过版本冲突保护。
