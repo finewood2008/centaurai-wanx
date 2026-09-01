@@ -50,6 +50,19 @@ test('v0.3.1 makes guidance persistent without replacing or submitting the nativ
   assert.doesNotMatch(client, /\.wx-guidance-examples\{display:none/u);
 });
 
+test('v0.3.1 imports external workspaces from the guidance dock and keeps other load errors retryable', () => {
+  const guidanceDock = client.match(/function GuidanceDock\(\{ session, sessionId, input, inputActions \}\) \{([\s\S]*?)\n    \}\n    function statusOf/u)?.[1] || '';
+  const importWorkspace = client.match(/async function importWorkspace\(workspaceId\) \{([\s\S]*?)\n    \}\n\n    function workspaceForSession/u)?.[1] || '';
+  assert.match(guidanceDock, /record\.errorCode === "workspace_outside_managed_root"/u);
+  assert.match(guidanceDock, /这个项目尚未导入万象/u);
+  assert.match(guidanceDock, /importWorkspace\(workspace\.workspaceId\)/u);
+  assert.match(guidanceDock, /"导入并开始使用"/u);
+  assert.match(guidanceDock, /record\.busy \? "正在导入项目并载入工作说明…"/u);
+  assert.match(guidanceDock, /disabled: record\.busy/u);
+  assert.match(guidanceDock, /loadProject\(workspace\.workspaceId\)[\s\S]*"重新同步"/u);
+  assert.match(importWorkspace, /replaceRecord\(workspaceId, \{ busy: true, error: "" \}\)/u);
+});
+
 test('v0.3.1 consumes server guidance with a pure client fallback', () => {
   assert.match(client, /guidance: normalizeGuidance\(projection\?\.guidance, derived\.guidance\)/u);
   assert.match(client, /function deriveGuidance\(project\)/u);

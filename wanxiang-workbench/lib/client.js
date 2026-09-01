@@ -332,7 +332,7 @@ window.__ModuleLoader__.load({
       }
     }
     async function importWorkspace(workspaceId) {
-      replaceRecord(workspaceId, { busy: true, error: "", errorCode: "" });
+      replaceRecord(workspaceId, { busy: true, error: "" });
       try {
         const body = await apiJson("/api/wanxiang/projects", {
           method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ workspaceId }),
@@ -494,13 +494,24 @@ window.__ModuleLoader__.load({
         "aria-label": "万象工作引导",
         "aria-busy": "true",
       }, h("span", { className: "wx-guidance-dot", "aria-hidden": "true" }), h("span", null, "正在同步工作引导…"));
-      if (record.status === "error" && guidance.progress.allKnown === 0) return h("section", {
-        className: "wx-guidance wx-guidance-sync",
-        "data-tone": "problem",
-        "aria-label": "万象工作引导",
-        role: "alert",
-      }, h("span", { className: "wx-guidance-dot", "aria-hidden": "true" }), h("span", null, "暂时无法载入工作说明。"),
-      h("button", { type: "button", className: "wx-guidance-link", onClick: () => void loadProject(workspace.workspaceId) }, "重新同步"));
+      if (record.status === "error" && guidance.progress.allKnown === 0) {
+        const importRequired = record.errorCode === "workspace_outside_managed_root";
+        return h("section", {
+          className: "wx-guidance wx-guidance-sync",
+          "data-tone": "problem",
+          "aria-label": "万象工作引导",
+          "aria-busy": record.busy ? "true" : undefined,
+          role: "alert",
+        }, h("span", { className: "wx-guidance-dot", "aria-hidden": "true" }), h("span", null, importRequired
+          ? record.busy ? "正在导入项目并载入工作说明…" : "这个项目尚未导入万象。导入后即可载入工作说明并开始使用。"
+          : "暂时无法载入工作说明。"),
+        h("button", {
+          type: "button",
+          className: "wx-guidance-link",
+          disabled: record.busy,
+          onClick: () => void (importRequired ? importWorkspace(workspace.workspaceId) : loadProject(workspace.workspaceId)),
+        }, importRequired ? record.busy ? "正在导入…" : "导入并开始使用" : "重新同步"));
+      }
       if (isEmpty) return h("section", { className: "wx-guidance wx-guidance-empty", "data-tone": guidanceTone(stage), "aria-label": "万象工作引导" },
         h("div", { className: "wx-guidance-kicker" }, h(Mark, { size: 22 }), h("span", null, "从真实工作开始")),
         h("h2", null, "不用先想清楚怎么做，先把工作交代给万象"),
