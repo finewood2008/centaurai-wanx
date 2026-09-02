@@ -60,6 +60,10 @@ subagent 的 `agentOptions` 分模型；`skill-filesystem` 发现工作手册；
 - 分享包不含原始资料路径，案例逐条勾选脱敏。
 - 容器只绑回环，出口只有万象代理；模型 key 配在容器里，成员看不到。
 
+## 相关备忘
+
+alpha 新包（SDK、webhook、审批 UI、locale、鉴权）对设计的影响见 [`DSH_ALPHA_NOTES.md`](./DSH_ALPHA_NOTES.md)。
+
 ## 版本策略
 
 DSH 钉 `0.1.2-alpha.2`（`packages/wanxiang-runtime/package.json` 与两份
