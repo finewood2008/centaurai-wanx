@@ -1,0 +1,25 @@
+{
+  "name": "@wanxiang/core",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "description": "万象核心库：说明书规格、确定性编译器、版本账本、调教、定时、运行与资料持久层（从 centaur-WANX 搬入）",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "js-yaml": "^5.4.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^26.4.0",
+    "tsx": "^4.23.12",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
+  },
+  "packageManager": "pnpm@11.7.0"
+}

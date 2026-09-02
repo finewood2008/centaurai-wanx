@@ -1,31 +1,37 @@
 # 万象（Wanxiang）
 
-万象是一个面向社群成员的本地工作 Agent 工作台。它帮助业务专家拿一项真实、反复发生的工作与万象共同做一遍、纠正一遍，再沉淀成可验证、可审查、可持续改进的能力。
+让 IT 能力很弱的社会精英，通过万象这个 agent 打造自己趁手的 AI 助理。
+成员用一场引导式访谈长出说明书，DSH 造出来并自己验收，社群随时接手。
 
-万象不以“一句话生成应用”为目标。任务理解、制作、验证和运行都发生在同一个工作台里；社群作为独立的外部服务提供咨询与反馈，但不进入产品流程，也不替用户确认需求或验收结果。
+产品基线见 [`docs/product/PRODUCT.md`](./docs/product/PRODUCT.md)（v0.4，设计已批准）。
 
-## 当前 MVP
+## 仓库结构
 
-- 原生任务对话：从第一条消息开始理解真实工作，按需追问，并自动形成可编辑的七项工作说明。
-- 统一工作台：用户明确“开始制作”后，同一个对话原位进入制作与验证，不创建第二个角色或会话。
-- 渐进式权限：理解阶段只读；制作阶段只允许写入当前项目，外部副作用仍需确认。
-- 多项目：同一个本地进程中创建、导入和切换受管理项目目录，项目状态互相隔离。
-- 自由对话：原生对话、附件、模型、工具、停止、队列和运行记录始终可用。
-- 清洁运行时：万象使用项目随包安装的开放框架内核和独立数据目录，不读取本机其他安装中的插件或配置。
-- 社群抽屉：在任意阶段直接咨询或反馈，保持在流程之外。
+```
+packages/
+  wanxiang-core/       核心库（TypeScript）：说明书规格、确定性编译器、版本账本、
+                       调教、定时、运行与资料持久层。从 centaur-WANX 搬入，283 个单测。
+  wanxiang-workbench/  DSH 插件（宿主 policy + 状态机 + 浏览器注入）。
+  wanxiang-runtime/    容器内启动器：拉起钉版的 DSH，渲染组合配置，管理数据目录。
+services/community/    中央社群服务（账号、实例编排、应用注册表、支持台、通知）— 第 1 期
+apps/community-web/    市集与支持台网页 — 第 1～2 期
+docs/                  产品基线、架构、设计评审
+```
 
-当前 Data Agent 仍是示例契约，不会读取真实业务数据，也不会执行外部写入。
+旧仓库 `centaur-WANX` 的完整历史保留在分支 `archive/centaur-wanx`。
 
 ## 本地运行
 
 ```bash
-pnpm --dir wanxiang-runtime install
-pnpm start
+pnpm install:all        # 核心库 + 运行时（运行时会拉取钉版的 DSH 与原生模块）
+pnpm test               # 三个包的测试
+pnpm start              # 启动工作台，按日志里的完整本地认证地址打开
 ```
 
-请打开启动日志打印的完整本地认证地址；裸 `http://localhost:3000` 不保证在新浏览器中已经认证。模型尚未连接时，对话区会显示连接引导，但不会创建空白任务或修改项目状态。
+需要 Node 24 与 pnpm 11.7（`corepack prepare pnpm@11.7.0 --activate`）。
 
-本地会话、配置和受保护项目状态保存在 `.wanxiang-runtime/`，不会提交到 Git。项目中的 `.wanxiang/project.json` 是可迁移镜像；确认后才生成 `.wanxiang/work-brief.md`。社群问题和反馈目前只保存在本机待发送箱中，不会伪装成已经发送。产品内核的第三方许可见 [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md)。
+本地会话、配置和受保护项目状态保存在 `.wanxiang-runtime/`，不进 Git。
+第三方许可见 [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md)。
 
 ## 相关文档
 
@@ -33,4 +39,3 @@ pnpm start
 - [一体化运行架构](./docs/architecture/WANXIANG_RUNTIME.md)
 - [视觉系统](./DESIGN.md)
 - [v0.3 五维设计评审](./docs/design/WANXIANG_V03_CRITIQUE.html)
-- [代码同步说明](./SYNC.md)

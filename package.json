@@ -1,11 +1,13 @@
 {
   "name": "wanxiang",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
-  "description": "万象：把真实工作沉淀成可靠、可重复运行的能力",
+  "description": "万象：让不会技术的人造出自己能天天用的 AI 助理",
   "scripts": {
-    "start": "pnpm --dir wanxiang-runtime start",
-    "test": "pnpm --dir wanxiang-runtime test && pnpm --dir wanxiang-workbench test"
+    "start": "pnpm --dir packages/wanxiang-runtime start",
+    "install:all": "pnpm --dir packages/wanxiang-core install && pnpm --dir packages/wanxiang-runtime install",
+    "test": "pnpm --dir packages/wanxiang-core test && pnpm --dir packages/wanxiang-runtime test && pnpm --dir packages/wanxiang-workbench test",
+    "typecheck": "pnpm --dir packages/wanxiang-core typecheck"
   },
   "packageManager": "pnpm@11.7.0"
 }

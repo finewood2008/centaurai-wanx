@@ -6,7 +6,7 @@ import path from 'node:path';
 import { WanxiangRuntimeError } from './runtime-error.mjs';
 
 const serviceRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const projectRoot = path.resolve(serviceRoot, '..');
+const projectRoot = path.resolve(serviceRoot, '..', '..');
 const defaultDataRoot = path.join(projectRoot, '.wanxiang-runtime');
 const require = createRequire(import.meta.url);
 const runtimePackageRoot = path.dirname(require.resolve('@deepseek-ai/dsh/package.json'));
@@ -29,8 +29,8 @@ export class WanxiangRuntimeManager {
     this.workspaceRoot = path.resolve(options.workspaceRoot || process.env.WANXIANG_WORKSPACE_ROOT || path.join(this.dataRoot, 'workspaces'));
     this.runtimeHome = path.resolve(options.runtimeHome || process.env.WANXIANG_RUNTIME_HOME || path.join(this.dataRoot, 'engine'));
     this.shellRoot = path.join(this.dataRoot, 'shell');
-    this.bundlePatch = path.resolve(options.bundlePatch || process.env.WANXIANG_WORKBENCH_PATCH || path.join(projectRoot, 'wanxiang-workbench', 'cordis.patch.yml'));
-    this.bundleEntry = path.resolve(options.bundleEntry || process.env.WANXIANG_WORKBENCH_ENTRY || path.join(projectRoot, 'wanxiang-workbench', 'src', 'policy.mjs'));
+    this.bundlePatch = path.resolve(options.bundlePatch || process.env.WANXIANG_WORKBENCH_PATCH || path.join(projectRoot, 'packages', 'wanxiang-workbench', 'cordis.patch.yml'));
+    this.bundleEntry = path.resolve(options.bundleEntry || process.env.WANXIANG_WORKBENCH_ENTRY || path.join(projectRoot, 'packages', 'wanxiang-workbench', 'src', 'policy.mjs'));
     this.runtimePatch = path.join(this.dataRoot, 'wanxiang.patch.yml');
     this.productStatePath = path.join(this.dataRoot, 'product-state.json');
     this.port = Number(options.port ?? process.env.WANXIANG_PORT ?? 3000);
@@ -60,7 +60,7 @@ export class WanxiangRuntimeManager {
       throw new WanxiangRuntimeError('WANXIANG_RUNTIME_STOPPED', '万象工作台启动已取消');
     }
 
-    if (this.running?.child.exitCode === null) {
+    if (this.running && !hasExited(this.running.child)) {
       return { url: this.running.url, port: this.running.port, reused: true };
     }
     if (this.starting) return this.starting;

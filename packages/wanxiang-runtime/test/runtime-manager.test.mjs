@@ -207,7 +207,7 @@ setInterval(() => {}, 1000);
 `);
   try {
     const exitMarker = path.join(fixture.root, 'timeout-exit.txt');
-    const manager = fixture.manager({ startTimeoutMs: 80, stopTimeoutMs: 200 });
+    const manager = fixture.manager({ startTimeoutMs: 400, stopTimeoutMs: 1000 });
     manager.environment.TEST_EXIT_MARKER = exitMarker;
     const startedAt = Date.now();
     await assert.rejects(
@@ -215,7 +215,7 @@ setInterval(() => {}, 1000);
       (error) => error?.code === 'WANXIANG_RUNTIME_TIMEOUT',
     );
 
-    assert.ok(Date.now() - startedAt >= 100, 'timeout rejection should wait for child shutdown');
+    assert.ok(Date.now() - startedAt >= 420, 'timeout rejection should wait for child shutdown');
     assert.equal(await readFile(exitMarker, 'utf8'), 'timeout-exit');
     assert.equal(manager.startingChild, null);
     assert.equal(manager.running, null);
