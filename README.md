@@ -10,7 +10,7 @@
 ```
 packages/
   wanxiang-core/       核心库（TypeScript）：说明书规格、确定性编译器、版本账本、
-                       调教、定时、运行与资料持久层。从 centaur-WANX 搬入，283 个单测。
+                       调教、定时、运行与资料持久层。从 centaur-WANX 搬入，21 份测试 239 个用例。
   wanxiang-workbench/  DSH 插件（宿主 policy + 状态机 + 浏览器注入）。
   wanxiang-runtime/    容器内启动器：拉起钉版的 DSH，渲染组合配置，管理数据目录。
 services/community/    中央社群服务（账号、实例编排、应用注册表、支持台、通知）— 第 1 期
